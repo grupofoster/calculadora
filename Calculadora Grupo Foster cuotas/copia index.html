@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<img src="logo.png" alt="Grupo Foster" style="width:140px; display:block; margin:0 auto 10px auto;">
+  <meta charset="UTF-8">
+  <title>Calculadora de Cuotas - Grupo Foster</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: #f7f7f7;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    button {
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #eee;
+      border-radius: 10px;
+    }
+
+    .note {
+      font-size: 13px;
+      color: gray;
+      margin-top: 10px;
+    }
+
+    .cta {
+      margin-top: 20px;
+      background: green;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Calculadora de Cuotas - Grupo Foster C.A</h2>
+
+  <div class="box">
+
+    <input type="number" id="monto" placeholder="Monto Total del Presupuesto (USD$)">
+
+    <select id="frecuencia">
+      <option value="">¿Cuál frecuencia de pago prefieres?</option>
+      <option value="semanal">Semanal</option>
+      <option value="quincenal">Quincenal</option>
+    </select>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="result" id="resultado"></div>
+
+    <button class="cta" id="whatsappBtn" style="display:none" onclick="enviarWhatsApp()">
+      Agendar mi Remodelación
+    </button>
+
+    <div class="note">
+      ⚠️ Importante: Al llegar al 50% del pago total, iniciamos la ejecución de la obra. Segun cronograma personalizado para cada una.
+    </div>
+
+  </div>
+
+<script>
+function calcular() {
+  let monto = parseFloat(document.getElementById("monto").value);
+  let frecuencia = document.getElementById("frecuencia").value;
+
+  if (!monto || monto < 400 || monto > 1400) {
+    document.getElementById("resultado").innerHTML = "Ingresa un monto entre $400 y $1400";
+    return;
+  }
+
+  if (!frecuencia) {
+    document.getElementById("resultado").innerHTML = "Selecciona la frecuencia de pago";
+    return;
+  }
+
+  let inicial = monto * 0.25;
+  let restante = monto * 0.75;
+
+  let cuotas = 0;
+
+  if (monto <= 600) {
+    cuotas = (frecuencia === "semanal") ? 3 : 2;
+  } else if (monto <= 1000) {
+    cuotas = (frecuencia === "semanal") ? 5 : 3;
+  } else {
+    cuotas = (frecuencia === "semanal") ? 8 : 4;
+  }
+
+  let valorCuota = restante / cuotas;
+let semanasTotal = 0;
+let semanasInicioObra = 0;
+
+// definir semanas según modalidad
+if (frecuencia === "semanal") {
+  semanasTotal = cuotas;
+  semanasInicioObra = Math.ceil(cuotas / 2);
+} else {
+  semanasTotal = cuotas * 2;
+  semanasInicioObra = Math.ceil(semanasTotal / 2);
+}
+
+  document.getElementById("resultado").innerHTML = `
+    <p><b>Pago Inicial (25%):</b> $${inicial.toFixed(2)}</p>
+    <p><b>Monto Restante:</b> $${restante.toFixed(2)} (75%)</p>
+    <p><b>Número de cuotas:</b> ${cuotas}</p>
+    <p><b>Valor por cuota:</b> $${valorCuota.toFixed(2)}</p>
+    <p><b>Inicio de obra (50%):</b> Semana ${semanasInicioObra}<br></p>
+    <p><b>Tiempo total de pago:</b> ${semanasTotal} semanas<br></p>
+  `;
+
+  document.getElementById("whatsappBtn").style.display = "block";
+
+  window.resultadoFinal =
+`Hola Grupo Foster 👋%0A%0A` +
+
+`Quiero agendar mi remodelación en cuotas.%0A%0A` +
+
+`📌 Resumen de mi cálculo:%0A` +
+
+`💰 Monto total: $${monto.toFixed(2)} USD%0A` +
+
+`💳 Frecuencia de pago: ${frecuencia}%0A` +
+
+`🔸 Pago inicial (25%): $${inicial.toFixed(2)} USD%0A` +
+
+`🔸 Monto restante (75%): $${restante.toFixed(2)} USD%0A` +
+
+`🔸 Número de cuotas: ${cuotas}%0A` +
+
+`🔸 Valor de cada cuota: $${valorCuota.toFixed(2)} USD%0A` +
+
+`📅 Inicio de obra aproximado: Semana ${semanasInicioObra}%0A` +
+
+`✅ Pago total completado en: ${semanasTotal} semanas.%0A%0A` +
+
+`Quisiera recibir más información para iniciar mi proyecto.`;
+
+function enviarWhatsApp() {
+  let numero = "584245848308";
+  window.open(`https://wa.me/${numero}?text=${window.resultadoFinal}`, "_blank");
+}
+</script>
+
+</body>
+</html>
