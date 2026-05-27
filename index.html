@@ -301,30 +301,19 @@ if (frecuencia === "semanal") {
 
   document.getElementById("whatsappBtn").style.display = "block";
 
-  window.resultadoFinal =
+ window.resultadoFinal =
 `Hola Grupo Foster 👋%0A%0A` +
-
 `Quiero agendar mi remodelación en cuotas.%0A%0A` +
-
-`📌 Resumen de mi cálculo:%0A` +
-
-`💰 Monto total: $${monto.toFixed(2)} USD%0A` +
-
-`💳 Frecuencia de pago: ${frecuencia}%0A` +
-
-`🔸 Pago inicial (25%): $${inicial.toFixed(2)} USD%0A` +
-
-`🔸 Monto restante (75%): $${restante.toFixed(2)} USD%0A` +
-
-`🔸 Número de cuotas: ${cuotas}%0A` +
-
-`🔸 Valor de cada cuota: $${valorCuota.toFixed(2)} USD%0A` +
-
-`📅 Inicio de obra aproximado: Semana ${semanasInicioObra}%0A` +
-
-`✅ Pago total completado en: ${semanasTotal} semanas.%0A%0A` +
-
-`Quisiera recibir más información para iniciar mi proyecto.`;
+`📌 Resumen:%0A` +
+`Monto total: $${monto}%0A` +
+`Frecuencia: ${frecuencia}%0A` +
+`Pago inicial (25%): $${inicial.toFixed(2)}%0A` +
+`Restante (75%): $${restante.toFixed(2)}%0A` +
+`Cuotas: ${cuotas}%0A` +
+`Valor cuota: $${valorCuota.toFixed(2)}%0A` +
+`Inicio de obra: Semana ${semanasInicioObra}%0A` +
+`Duración total: ${semanasTotal} semanas%0A%0A` +
+`Quiero iniciar mi proyecto.`;
 
 function enviarWhatsApp() {
   let numero = "584245848308";
