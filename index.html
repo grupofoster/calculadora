@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<img src="logo.png" alt="Grupo Foster" style="width:140px; display:block; margin:0 auto 10px auto;">
+  <meta charset="UTF-8">
+  <title>Calculadora de Cuotas - Grupo Foster</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 640px;
+      margin: auto;
+      padding: 20px;
+      background: #ebebeb;
+      min-height: 100vh;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c2c2c;
+      margin-bottom: 6px;
+    }
+
+    .hero-banner {
+      width: 100%;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+
+    .hero-banner svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .box {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.10);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 1.5px solid #d0d0d0;
+      border-radius: 7px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: #E8620A;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+      transition: background 0.18s, transform 0.1s;
+    }
+
+    .btn-calcular {
+      background: #E8620A;
+      color: white;
+    }
+
+    .btn-calcular:hover {
+      background: #cf540a;
+      transform: translateY(-1px);
+    }
+
+    .btn-calcular:active {
+      transform: translateY(0);
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f4f4f4;
+      border-left: 4px solid #E8620A;
+      border-radius: 8px;
+    }
+
+    .note {
+      font-size: 13px;
+      color: gray;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .cta {
+      margin-top: 20px;
+      background: #1a8c34;
+      color: white;
+    }
+
+    .cta:hover {
+      background: #157029;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Calculadora de Cuotas - Grupo Foster C.A</h2>
+
+  <!-- Construction vector banner -->
+  <div class="hero-banner">
+    <svg viewBox="0 0 640 160" xmlns="http://www.w3.org/2000/svg" style="background:#2c2c2c;">
+      <!-- Sky gradient area -->
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1a2e"/>
+          <stop offset="100%" stop-color="#3a3a4a"/>
+        </linearGradient>
+        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4a3b2c"/>
+          <stop offset="100%" stop-color="#3b2e1e"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background -->
+      <rect width="640" height="160" fill="url(#skyGrad)"/>
+      <!-- Ground strip -->
+      <rect y="128" width="640" height="32" fill="url(#groundGrad)"/>
+      <!-- Ground line -->
+      <rect y="126" width="640" height="3" fill="#E8620A" opacity="0.7"/>
+
+      <!-- Moon / sun accent circle -->
+      <circle cx="580" cy="38" r="22" fill="#E8620A" opacity="0.18"/>
+      <circle cx="580" cy="38" r="15" fill="#E8620A" opacity="0.28"/>
+
+      <!-- Stars -->
+      <circle cx="50" cy="18" r="1.2" fill="white" opacity="0.5"/>
+      <circle cx="130" cy="12" r="1" fill="white" opacity="0.4"/>
+      <circle cx="220" cy="22" r="1.4" fill="white" opacity="0.5"/>
+      <circle cx="340" cy="9" r="1" fill="white" opacity="0.3"/>
+      <circle cx="460" cy="16" r="1.2" fill="white" opacity="0.4"/>
+      <circle cx="510" cy="30" r="1" fill="white" opacity="0.4"/>
+
+      <!-- Building 1 (left, tall) -->
+      <rect x="30" y="48" width="50" height="80" fill="#444" rx="2"/>
+      <!-- windows b1 -->
+      <rect x="37" y="56" width="10" height="8" fill="#E8620A" opacity="0.8" rx="1"/>
+      <rect x="55" y="56" width="10" height="8" fill="#ffe082" opacity="0.6" rx="1"/>
+      <rect x="37" y="72" width="10" height="8" fill="#ffe082" opacity="0.5" rx="1"/>
+      <rect x="55" y="72" width="10" height="8" fill="#E8620A" opacity="0.7" rx="1"/>
+      <rect x="37" y="88" width="10" height="8" fill="#ffe082" opacity="0.6" rx="1"/>
+      <rect x="55" y="88" width="10" height="8" fill="#ffe082" opacity="0.4" rx="1"/>
+      <rect x="37" y="104" width="10" height="8" fill="#E8620A" opacity="0.5" rx="1"/>
+
+      <!-- Crane (center-left) -->
+      <!-- Crane base -->
+      <rect x="120" y="90" width="10" height="38" fill="#E8620A"/>
+      <!-- Crane arm horizontal -->
+      <rect x="90" y="55" width="100" height="7" fill="#E8620A"/>
+      <!-- Crane counter arm -->
+      <rect x="90" y="55" width="30" height="5" fill="#cf540a"/>
+      <!-- Crane cable -->
+      <line x1="175" y1="62" x2="175" y2="95" stroke="#aaa" stroke-width="1.5"/>
+      <!-- Crane hook -->
+      <rect x="170" y="95" width="10" height="7" fill="#888" rx="1"/>
+      <!-- Crane tower brace lines -->
+      <line x1="120" y1="90" x2="113" y2="62" stroke="#cf540a" stroke-width="1.5"/>
+      <line x1="130" y1="90" x2="136" y2="62" stroke="#cf540a" stroke-width="1.5"/>
+
+      <!-- Building under construction (center) -->
+      <rect x="195" y="72" width="80" height="56" fill="#555" rx="2"/>
+      <!-- scaffolding lines -->
+      <line x1="195" y1="92" x2="275" y2="92" stroke="#E8620A" stroke-width="1.5" opacity="0.7"/>
+      <line x1="195" y1="112" x2="275" y2="112" stroke="#E8620A" stroke-width="1.5" opacity="0.7"/>
+      <line x1="220" y1="72" x2="220" y2="128" stroke="#E8620A" stroke-width="1.5" opacity="0.7"/>
+      <line x1="250" y1="72" x2="250" y2="128" stroke="#E8620A" stroke-width="1.5" opacity="0.7"/>
+      <!-- windows -->
+      <rect x="202" y="78" width="14" height="10" fill="#ffe082" opacity="0.5" rx="1"/>
+      <rect x="226" y="78" width="14" height="10" fill="#ffe082" opacity="0.7" rx="1"/>
+      <rect x="256" y="78" width="14" height="10" fill="#E8620A" opacity="0.6" rx="1"/>
+      <!-- door -->
+      <rect x="225" y="110" width="18" height="18" fill="#333" rx="1"/>
+
+      <!-- Hard hat icon (right side) -->
+      <ellipse cx="430" cy="85" rx="38" ry="18" fill="#E8620A"/>
+      <rect x="392" y="85" width="76" height="8" fill="#E8620A"/>
+      <rect x="388" y="93" width="84" height="5" fill="#cf540a" rx="2"/>
+      <!-- brim highlight -->
+      <ellipse cx="430" cy="85" rx="30" ry="10" fill="#ff7c2a" opacity="0.5"/>
+      <!-- hard hat stripe -->
+      <rect x="426" y="68" width="8" height="18" fill="#fff" opacity="0.25" rx="2"/>
+
+      <!-- Wrench icon (far right) -->
+      <g transform="translate(530,55) rotate(-35)">
+        <rect x="-4" y="-28" width="8" height="36" fill="#888" rx="3"/>
+        <ellipse cx="0" cy="-28" rx="9" ry="7" fill="#888"/>
+        <ellipse cx="0" cy="-28" rx="5" ry="3.5" fill="#2c2c2c"/>
+        <ellipse cx="0" cy="8" rx="9" ry="7" fill="#888"/>
+        <ellipse cx="0" cy="8" rx="5" ry="3.5" fill="#2c2c2c"/>
+      </g>
+
+      <!-- Brick stack (lower right) -->
+      <rect x="480" y="108" width="60" height="10" fill="#8B4513" rx="1"/>
+      <rect x="483" y="98" width="54" height="10" fill="#9B5523" rx="1"/>
+      <rect x="480" y="88" width="60" height="10" fill="#8B4513" rx="1"/>
+      <!-- mortar lines -->
+      <line x1="510" y1="108" x2="510" y2="118" stroke="#6b3010" stroke-width="1"/>
+      <line x1="505" y1="98" x2="505" y2="108" stroke="#7a3f15" stroke-width="1"/>
+      <line x1="515" y1="88" x2="515" y2="98" stroke="#6b3010" stroke-width="1"/>
+
+      <!-- Company name overlay -->
+      <text x="320" y="148" font-family="Arial, sans-serif" font-size="11" fill="#E8620A" text-anchor="middle" font-weight="bold" opacity="0.9" letter-spacing="1">Calidad, Rapidez. Porque sabemos lo que mereces</text>
+    </svg>
+  </div>
+
+  <div class="box">
+
+    <input type="number" id="monto" placeholder="Monto Total del Presupuesto (USD$)">
+
+    <select id="frecuencia">
+      <option value="">¿Cuál frecuencia de pago prefieres?</option>
+      <option value="semanal">Semanal</option>
+      <option value="quincenal">Quincenal</option>
+    </select>
+
+    <button class="btn-calcular" onclick="calcular()">Calcular</button>
+
+    <div class="result" id="resultado"></div>
+
+    <button class="cta" id="whatsappBtn" style="display:none" onclick="enviarWhatsApp()">
+      Agendar mi Remodelación
+    </button>
+
+    <div class="note">
+      ⚠️ Importante: Al llegar al 50% del pago total, iniciamos la ejecución de la obra. Segun cronograma personalizado para cada una.
+    </div>
+
+  </div>
+
+<script>
+function calcular() {
+  let monto = parseFloat(document.getElementById("monto").value);
+  let frecuencia = document.getElementById("frecuencia").value;
+
+  if (!monto || monto < 400 || monto > 1400) {
+    document.getElementById("resultado").innerHTML = "Ingresa un monto entre $400 y $1400";
+    return;
+  }
+
+  if (!frecuencia) {
+    document.getElementById("resultado").innerHTML = "Selecciona la frecuencia de pago";
+    return;
+  }
+
+  let inicial = monto * 0.25;
+  let restante = monto * 0.75;
+
+  let cuotas = 0;
+
+  if (monto <= 600) {
+    cuotas = (frecuencia === "semanal") ? 3 : 2;
+  } else if (monto <= 1000) {
+    cuotas = (frecuencia === "semanal") ? 5 : 3;
+  } else {
+    cuotas = (frecuencia === "semanal") ? 8 : 4;
+  }
+
+  let valorCuota = restante / cuotas;
+let semanasTotal = 0;
+let semanasInicioObra = 0;
+
+// definir semanas según modalidad
+if (frecuencia === "semanal") {
+  semanasTotal = cuotas;
+  semanasInicioObra = Math.ceil(cuotas / 2);
+} else {
+  semanasTotal = cuotas * 2;
+  semanasInicioObra = Math.ceil(semanasTotal / 2);
+}
+
+  document.getElementById("resultado").innerHTML = `
+    <p><b>Pago Inicial (25%):</b> $${inicial.toFixed(2)}</p>
+    <p><b>Monto Restante:</b> $${restante.toFixed(2)} (75%)</p>
+    <p><b>Número de cuotas:</b> ${cuotas}</p>
+    <p><b>Valor por cuota:</b> $${valorCuota.toFixed(2)}</p>
+    <p><b>Inicio de obra (50%):</b> Semana ${semanasInicioObra}<br></p>
+    <p><b>Tiempo total de pago:</b> ${semanasTotal} semanas<br></p>
+  `;
+
+  document.getElementById("whatsappBtn").style.display = "block";
+
+  window.resultadoFinal =
+    `Hola, quiero iniciar mi remodelación.%0A` +
+    `Monto total: $${monto}%0A` +
+    `Pago inicial (25%): $${inicial.toFixed(2)}%0A` +
+    `Restante: $${restante.toFixed(2)}%0A` +
+    `Cuotas: ${cuotas}%0A` +
+    `Valor por cuota: $${valorCuota.toFixed(2)}`;
+}
+
+function enviarWhatsApp() {
+  let numero = "+58 4245848308";
+  window.open(`https://wa.me/${numero}?text=${window.resultadoFinal}`, "_blank");
+}
+</script>
+
+</body>
+</html>
